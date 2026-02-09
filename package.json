@@ -1,14 +1,22 @@
 {
-  "name": "spicyshelf",
+  "name": "spicybooks",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "cf:build": "npx @opennextjs/cloudflare build",
+    "preview": "npx wrangler dev",
+    "deploy": "npx @opennextjs/cloudflare build && npx wrangler deploy",
+    "db:schema": "npx wrangler d1 execute spicybooks-db --local --file=scripts/schema.sql",
+    "db:seed": "npx tsx scripts/seed.ts | npx wrangler d1 execute spicybooks-db --local --file=-",
+    "db:schema:remote": "npx wrangler d1 execute spicybooks-db --remote --file=scripts/schema.sql",
+    "db:seed:remote": "npx wrangler d1 execute spicybooks-db --remote --file=scripts/seed.sql"
   },
   "dependencies": {
+    "@opennextjs/cloudflare": "^1.16.3",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3"
@@ -22,6 +30,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.63.0"
   }
 }

@@ -1,0 +1,58 @@
+{
+	"name": "spicybooks",
+	"main": ".open-next/worker.js",
+	"compatibility_date": "2025-01-01",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	// Static assets
+	"assets": {
+		"directory": ".open-next/assets",
+		"binding": "ASSETS"
+	},
+	// App data D1 database
+	"d1_databases": [
+		{
+			"binding": "SPICYBOOKS_DB",
+			"database_name": "spicybooks-db",
+			"database_id": "12d996ea-93b9-4f22-a1b4-d644e1d1ff63"
+		},
+		{
+			"binding": "NEXT_TAG_CACHE_D1",
+			"database_name": "spicybooks-tag-cache",
+			"database_id": "0beae7c7-12bc-4c94-80cb-c9d561b82e0c"
+		}
+	],
+	// R2 for ISR incremental cache
+	"r2_buckets": [
+		{
+			"binding": "NEXT_INC_CACHE_R2_BUCKET",
+			"bucket_name": "spicybooks-cache"
+		}
+	],
+	// Durable Objects for revalidation queue
+	"durable_objects": {
+		"bindings": [
+			{
+				"name": "NEXT_CACHE_DO_QUEUE",
+				"class_name": "DOQueueHandler"
+			}
+		]
+	},
+	// Self-reference for ISR
+	"services": [
+		{
+			"binding": "WORKER_SELF_REFERENCE",
+			"service": "spicybooks"
+		}
+	],
+	// DO migrations
+	"migrations": [
+		{
+			"tag": "v1",
+			"new_sqlite_classes": [
+				"DOQueueHandler"
+			]
+		}
+	]
+}

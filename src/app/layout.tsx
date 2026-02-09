@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Playfair_Display, DM_Sans } from "next/font/google";
 import Header from "@/components/Header";
 import "./globals.css";
@@ -31,6 +32,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-LB584VVXRP"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-LB584VVXRP');
+          `}
+        </Script>
+      </head>
       <body className={`${playfair.variable} ${dmSans.variable} antialiased`}>
         <Header />
         <main>{children}</main>

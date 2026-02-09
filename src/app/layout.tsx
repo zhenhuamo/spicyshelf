@@ -32,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
+      <body className={`${playfair.variable} ${dmSans.variable} antialiased`}>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-LB584VVXRP"
           strategy="afterInteractive"
@@ -45,8 +45,6 @@ export default function RootLayout({
             gtag('config', 'G-LB584VVXRP');
           `}
         </Script>
-      </head>
-      <body className={`${playfair.variable} ${dmSans.variable} antialiased`}>
         <Header />
         <main>{children}</main>
         <footer className="relative mt-20 border-t" style={{ borderColor: "var(--border)" }}>

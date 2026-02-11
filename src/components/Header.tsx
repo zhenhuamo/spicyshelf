@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Header() {
   return (
@@ -11,9 +12,13 @@ export default function Header() {
     >
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
         <Link href="/" className="flex items-center gap-2.5 group">
-          <span className="text-xl transition-transform group-hover:scale-110 group-hover:rotate-12">
-            🌶️
-          </span>
+          <Image
+            src="/logo.png"
+            alt="SpicyBooks logo"
+            width={32}
+            height={32}
+            className="transition-transform group-hover:scale-110 group-hover:rotate-12"
+          />
           <span
             className="text-xl font-bold tracking-tight"
             style={{ fontFamily: "var(--font-playfair)", color: "var(--primary)" }}

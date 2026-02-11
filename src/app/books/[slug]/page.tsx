@@ -10,7 +10,6 @@ import ReviewCard from "@/components/ReviewCard";
 import {
   getAllBooks,
   getBookBySlug,
-  getBookshopUrl,
   getTropeBySlug,
   getSimilarBooks,
 } from "@/lib/books";
@@ -266,19 +265,7 @@ export default async function BookPage({
               >
                 Buy on Amazon →
               </a>
-              <a
-                href={getBookshopUrl(book.isbn)}
-                target="_blank"
-                rel="nofollow noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-200 hover:scale-105"
-                style={{
-                  background: "var(--surface)",
-                  border: "1px solid var(--border)",
-                  color: "var(--text-primary)",
-                }}
-              >
-                Buy on Bookshop.org
-              </a>
+
             </div>
           </div>
         </header>
@@ -725,14 +712,7 @@ export default async function BookPage({
             >
               Buy on Amazon →
             </a>
-            <a
-              href={getBookshopUrl(book.isbn)}
-              target="_blank"
-              rel="nofollow noopener noreferrer"
-              className="rounded-xl border-2 border-white/40 px-7 py-3 text-sm font-bold text-white transition-all duration-200 hover:border-white hover:scale-105"
-            >
-              Buy on Bookshop.org
-            </a>
+
           </div>
         </section>
       </article>

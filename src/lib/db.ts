@@ -47,7 +47,7 @@ function rowToBook(row: BookRow, tropes: string[], reviews: Review[]): Book {
     pageCount: row.page_count,
     publishYear: row.publish_year,
     isbn: row.isbn,
-    amazonUrl: row.amazon_url,
+    amazonUrl: row.amazon_url.replace('YOUR_TAG', 'chessanalys05-20'),
     tropes,
     subgenres: JSON.parse(row.subgenres),
     contentWarnings: JSON.parse(row.content_warnings),

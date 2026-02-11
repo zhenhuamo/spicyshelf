@@ -8,6 +8,7 @@ declare namespace Cloudflare {
 		NEXT_TAG_CACHE_D1: D1Database;
 		ASSETS: Fetcher;
 		REVALIDATE_SECRET: string;
+		ADMIN_PASSWORD: string;
 		NEXT_CACHE_DO_QUEUE: DurableObjectNamespace /* DOQueueHandler */;
 		WORKER_SELF_REFERENCE: Fetcher /* spicybooks */;
 	}

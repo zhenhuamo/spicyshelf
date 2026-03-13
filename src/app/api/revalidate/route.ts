@@ -10,6 +10,14 @@ export async function POST(request: Request) {
     return Response.json({ error: "Invalid secret" }, { status: 401 });
   }
 
+  if (path === "/all") {
+    // Revalidate all key pages at once
+    const paths = ["/", "/spice", "/tropes"];
+    for (let i = 0; i <= 5; i++) paths.push(`/spice/${i}`);
+    for (const p of paths) revalidatePath(p);
+    return Response.json({ revalidated: true, paths });
+  }
+
   revalidatePath(path || "/");
   return Response.json({ revalidated: true, path: path || "/" });
 }

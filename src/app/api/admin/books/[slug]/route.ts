@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { getBookBySlugAdmin, updateBook, deleteBook } from "@/lib/admin-db";
+import { revalidateBookPages } from "@/lib/revalidate";
 import type { BookFormData } from "@/lib/admin-types";
 
 export async function GET(
@@ -36,6 +37,8 @@ export async function PUT(
 
     await updateBook(db, slug, data);
 
+    revalidateBookPages(slug);
+
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
@@ -52,6 +55,8 @@ export async function DELETE(
     const db = (env as unknown as CloudflareEnv).SPICYBOOKS_DB;
 
     await deleteBook(db, slug);
+
+    revalidateBookPages(slug);
 
     return NextResponse.json({ success: true });
   } catch {

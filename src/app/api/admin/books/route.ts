@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { getBooksPaginated, createBook } from "@/lib/admin-db";
 import { slugify } from "@/lib/utils";
+import { revalidateBookPages } from "@/lib/revalidate";
 import type { BookFormData } from "@/lib/admin-types";
 
 export async function GET(request: Request) {
@@ -33,6 +34,8 @@ export async function POST(request: Request) {
     const db = (env as unknown as CloudflareEnv).SPICYBOOKS_DB;
 
     await createBook(db, data);
+
+    revalidateBookPages(data.slug);
 
     return NextResponse.json({ success: true, slug: data.slug }, { status: 201 });
   } catch (error: unknown) {

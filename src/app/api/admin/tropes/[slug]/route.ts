@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { updateTrope, deleteTrope } from "@/lib/admin-db";
+import { revalidateTropePages } from "@/lib/revalidate";
 import type { TropeFormData } from "@/lib/admin-types";
 
 export async function PUT(
@@ -15,6 +16,8 @@ export async function PUT(
     const db = (env as unknown as CloudflareEnv).SPICYBOOKS_DB;
 
     await updateTrope(db, slug, data);
+
+    revalidateTropePages(slug);
 
     return NextResponse.json({ success: true });
   } catch {
@@ -32,6 +35,8 @@ export async function DELETE(
     const db = (env as unknown as CloudflareEnv).SPICYBOOKS_DB;
 
     await deleteTrope(db, slug);
+
+    revalidateTropePages(slug);
 
     return NextResponse.json({ success: true });
   } catch {

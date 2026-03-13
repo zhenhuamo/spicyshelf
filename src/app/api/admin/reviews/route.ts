@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { getReviewsAdmin, createReview } from "@/lib/admin-db";
+import { revalidateReviewPages } from "@/lib/revalidate";
 import type { ReviewFormData } from "@/lib/admin-types";
 
 export async function GET(request: Request) {
@@ -26,6 +27,8 @@ export async function POST(request: Request) {
     const db = (env as unknown as CloudflareEnv).SPICYBOOKS_DB;
 
     await createReview(db, data);
+
+    revalidateReviewPages(data.book_slug);
 
     return NextResponse.json({ success: true }, { status: 201 });
   } catch {

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { getAllTropesAdmin, createTrope } from "@/lib/admin-db";
 import { slugify } from "@/lib/utils";
+import { revalidateTropePages } from "@/lib/revalidate";
 import type { TropeFormData } from "@/lib/admin-types";
 
 export async function GET() {
@@ -28,6 +29,8 @@ export async function POST(request: Request) {
     const db = (env as unknown as CloudflareEnv).SPICYBOOKS_DB;
 
     await createTrope(db, data);
+
+    revalidateTropePages(data.slug);
 
     return NextResponse.json({ success: true, slug: data.slug }, { status: 201 });
   } catch (error: unknown) {
